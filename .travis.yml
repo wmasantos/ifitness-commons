@@ -1,0 +1,15 @@
+language: java
+dist: trusty
+jdk:
+  - oraclejdk8
+  - openjdk7
+  - openjdk10
+  - oraclejdk11
+script: "mvn clean package"
+branches:
+  except:
+    - travis
+notifications:
+  email: false
+after_success:
+  - mvn clean install
