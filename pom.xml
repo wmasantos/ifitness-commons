@@ -19,7 +19,7 @@
         <java.version>1.8</java.version>
         <maven-checkstyle-plugin.version>3.0.0</maven-checkstyle-plugin.version>
         <checkstyle-version>8.17</checkstyle-version>
-        <nexus-host>10.53.18.37:8081</nexus-host>
+        <nexus-host>desenv.ifitnessworkout.com.br:8081</nexus-host>
         <maven-release-plugin-version>2.5.3</maven-release-plugin-version>
     </properties>
 
@@ -89,6 +89,37 @@
                 </configuration>
             </plugin>
 
+            <!-- MAVEN DEPLOY -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-deploy-plugin</artifactId>
+                <version>${maven-deploy-plugin.version}</version>
+                <configuration>
+                    <skip>true</skip>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.sonatype.plugins</groupId>
+                <artifactId>nexus-staging-maven-plugin</artifactId>
+                <version>1.5.1</version>
+                <executions>
+                    <execution>
+                        <id>default-deploy</id>
+                        <phase>deploy</phase>
+                        <goals>
+                            <goal>deploy</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <serverId>nexus</serverId>
+                    <nexusUrl>http://${nexus-host}/nexus/</nexusUrl>
+                    <skipStaging>true</skipStaging>
+                </configuration>
+            </plugin>
+            <!-- MAVEN DEPLOY -->
+
             <!-- CHECK STYLE -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -132,16 +163,22 @@
         </plugins>
     </build>
 
+    <distributionManagement>
+        <snapshotRepository>
+            <id>nexus-snapshots</id>
+            <url>http://${nexus-host}/nexus/content/repositories/snapshots</url>
+        </snapshotRepository>
+
+        <repository>
+            <id>nexus-releases</id>
+            <url>http://localhost:8081/nexus/content/repositories/releases</url>
+        </repository>
+    </distributionManagement>
+
     <repositories>
         <repository>
             <id>jitpack.io</id>
             <url>https://jitpack.io</url>
-        </repository>
-
-        <repository>
-            <id>nexus-snapshots</id>
-            <name>nexus</name>
-            <url>http://${nexus-host}/repository/maven-releases</url>
         </repository>
     </repositories>
 
