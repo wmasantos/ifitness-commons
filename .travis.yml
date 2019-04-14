@@ -9,6 +9,6 @@ branches:
   except:
     - travis
 notifications:
-  email: false
+  email: ifitnessworkout@gmail.com
 after_success:
   - mvn clean install
