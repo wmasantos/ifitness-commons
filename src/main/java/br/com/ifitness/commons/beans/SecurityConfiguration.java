@@ -17,7 +17,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         auth.inMemoryAuthentication()
             .passwordEncoder(new BCryptPasswordEncoder())
             .withUser("ifitness-web-user")
-            .password("iFWebUser")
+            .password("{noop}iFWebUser")
             .roles("USER");
     }
 
@@ -34,6 +34,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 "/webjars/**")
             .permitAll()
             .anyRequest()
-            .authenticated().and().csrf().disable();
+            .authenticated()
+            .and()
+            .httpBasic()
+            .and()
+            .csrf()
+            .disable();
     }
 }
