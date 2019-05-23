@@ -27,7 +27,7 @@
         <url>https://github.com/wmasantos/ifitness-commons</url>
         <developerConnection>scm:git:https://github.com/wmasantos/ifitness-commons.git</developerConnection>
         <tag>HEAD</tag>
-  </scm>
+    </scm>
 
     <dependencyManagement>
         <dependencies>
