@@ -15,7 +15,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Autowired
     public void configureGlobalSecurity(AuthenticationManagerBuilder auth) throws Exception {
         auth.inMemoryAuthentication()
-            .passwordEncoder(new BCryptPasswordEncoder())
             .withUser("ifitness-web-user")
             .password("{noop}iFWebUser")
             .roles("USER");
