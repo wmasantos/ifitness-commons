@@ -7,6 +7,8 @@ import br.com.ifitness.commons.exception.IFitnessException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import javax.validation.ConstraintViolationException;
+
 import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -69,5 +71,31 @@ public class ErrorControllerAdvice {
                     .message("Erros retornados")
                     .content(responseValidations)
                     .build());
+    }
+
+    @ExceptionHandler(ConstraintViolationException.class)
+    public ResponseEntity<ResponseWithContentArray<ResponseValidation>> handleConstraintViolation(
+        ConstraintViolationException ex) {
+
+        final List<ResponseValidation> responseValidations = new ArrayList<>();
+
+        ex.getConstraintViolations().forEach(constraintViolation ->
+            responseValidations.add(ResponseValidation
+                .builder()
+                .field("")
+                .value(constraintViolation.getInvalidValue().toString())
+                .errorMessage(constraintViolation.getMessage())
+                .build()
+            )
+        );
+
+        return ResponseEntity
+            .badRequest()
+            .body(ResponseWithContentArray.<ResponseValidation>builder()
+                .code(0)
+                .httpCode(HttpStatus.BAD_REQUEST.value())
+                .message("Erros retornados")
+                .content(responseValidations)
+                .build());
     }
 }
