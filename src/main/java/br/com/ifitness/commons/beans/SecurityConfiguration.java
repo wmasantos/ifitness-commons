@@ -26,6 +26,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             .passwordEncoder(new BCryptPasswordEncoder())
             .withUser("ifitness-web-user")
             .password(encoder.encode("iFWebUser"))
+            .roles("USER")
+            .and()
+            .withUser("ifitness-mobile-user")
+            .password(encoder.encode("iFMobileUser"))
             .roles("USER");
     }
 
@@ -41,7 +45,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 "/v2/api-docs",
                 "/configuration/**",
                 "/swagger*/**",
-                "/webjars/**")
+                "/webjars/**",
+                "/",
+                "/csrf")
             .permitAll()
             .anyRequest()
             .authenticated()
