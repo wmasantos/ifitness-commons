@@ -17,7 +17,7 @@
     <properties>
         <java.version>1.8</java.version>
         <maven-checkstyle-plugin.version>3.0.0</maven-checkstyle-plugin.version>
-        <checkstyle-version>8.21</checkstyle-version>
+        <checkstyle-version>8.29</checkstyle-version>
         <rabbit-amqp-client-version>5.7.1</rabbit-amqp-client-version>
         <google-gson-version>2.8.5</google-gson-version>
         <file-commons-version>1.4</file-commons-version>
